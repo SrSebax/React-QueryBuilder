@@ -19,8 +19,8 @@ function App() {
     setQuery(query);
     const queryString = formatQuery(query, 'sql');
     console.log('SQL Query:', queryString);
-    const filtered = initialData.filter(item => {
-      return query.rules.every(rule => {
+    const filtered = initialData.filter((item) => {
+      return query.rules.every((rule) => {
         if (rule.field === 'firstName') {
           return item.firstName.includes(rule.value);
         } else if (rule.field === 'lastName') {
@@ -36,17 +36,17 @@ function App() {
 
   return (
     <div className="App container mt-5">
-      <div className="mb-4">
-        <h1 className="text-center text-primary">React Query Builder</h1>
-        <QueryBuilder 
-          fields={fields} 
-          query={query} 
-          onQueryChange={handleQueryChange} 
-          className="p-3 border rounded"
+      <div className="mb-4 p-4 shadow-sm rounded bg-white">
+        <h1 className="text-center text-primary mb-4">React Query Builder</h1>
+        <QueryBuilder
+          fields={fields}
+          query={query}
+          onQueryChange={handleQueryChange}
+          className="p-3 border rounded bg-light"
         />
       </div>
-      <div>
-        <h2 className="text-center text-secondary">Filtered Data</h2>
+      <div className="p-4 shadow-sm rounded bg-white">
+        <h2 className="text-center text-secondary mb-4">Filtered Data</h2>
         <DataTable data={filteredData} />
       </div>
     </div>

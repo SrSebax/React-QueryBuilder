@@ -6,7 +6,6 @@ const initialData = [
     { firstName: 'Jordan', lastName: 'Rendon', age: 38 },
     { firstName: 'Sandra', lastName: 'Urrego', age: 29 },
     { firstName: 'Manuela', lastName: 'Londoño', age: 41 },
-    { firstName: 'Sofia', lastName: 'Naranjo', age: 27 },
     { firstName: 'Laura', lastName: 'Moore', age: 36 },
     { firstName: 'James', lastName: 'Martin', age: 50 },
     { firstName: 'Sophia', lastName: 'Jackson', age: 24 },

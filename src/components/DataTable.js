@@ -1,33 +1,39 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function DataTable({ data }) {
+const DataTable = ({ columns, data }) => {
   return (
-    <div className="card shadow-sm">
-      <div className="card-header bg-secondary text-white">
-        <h2>Data Table</h2>
-      </div>
-      <div className="card-body">
-        <table className="table table-striped table-hover">
-          <thead className="thead-dark">
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Age</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((item, index) => (
-              <tr key={index}>
-                <td>{item.firstName}</td>
-                <td>{item.lastName}</td>
-                <td>{item.age}</td>
-              </tr>
+    <div className="table-responsive">
+      <table className="table table-striped table-bordered">
+        <thead className="thead-dark">
+          <tr>
+            {columns.map((column, index) => (
+              <th key={index}>{column.header}</th>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, index) => (
+            <tr key={index}>
+              {columns.map((column, colIndex) => (
+                <td key={colIndex}>{item[column.accessor]}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
-}
+};
+
+DataTable.propTypes = {
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      header: PropTypes.string.isRequired,
+      accessor: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default DataTable;

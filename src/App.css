@@ -1,41 +1,35 @@
-body {
-  background-color: #f8f9fa; /* Color de fondo suave */
-  font-family: 'Arial', sans-serif;
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
 
-h1, h2 {
-  font-weight: bold;
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.container {
-  max-width: 800px;
+.query-builder-container,
+.sql-query-container,
+.data-table-container {
+  flex: 1;
+  overflow: auto;
 }
 
-.QueryBuilder {
-  font-size: 0.9rem;
+.query-builder-container {
+  max-height: 30%;
 }
 
-.bg-white {
-  background-color: #ffffff;
+.sql-query-container {
+  max-height: 20%;
 }
 
-.shadow-sm {
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+.data-table-container {
+  max-height: 50%;
 }
 
-.border-rounded {
-  border-radius: 8px;
-}
-
-.btn {
-  font-size: 0.9rem;
-  padding: 0.5rem 1rem;
-}
-
-.text-primary {
-  color: #007bff;
-}
-
-.text-secondary {
-  color: #6c757d;
+.table-responsive {
+  max-height: 100%;
+  overflow: auto;
 }

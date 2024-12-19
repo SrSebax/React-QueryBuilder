@@ -1,35 +1,81 @@
-body, html {
-  height: 100%;
-  margin: 0;
-  font-family: Arial, sans-serif;
+/* Query Table */
+.query-builder-table-container {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.App {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+.table {
+  margin-bottom: 0;
 }
 
-.query-builder-container,
-.sql-query-container,
-.data-table-container {
-  flex: 1;
-  overflow: auto;
+.table thead th {
+  background-color: #343a40;
+  color: #fff;
+  border-bottom: 2px solid #dee2e6;
 }
 
-.query-builder-container {
-  max-height: 30%;
+.table tbody tr:hover {
+  background-color: #e9ecef;
 }
 
-.sql-query-container {
-  max-height: 20%;
+.table tbody td {
+  vertical-align: middle;
 }
 
-.data-table-container {
-  max-height: 50%;
+.btn-outline-danger {
+  border-color: #dc3545;
+  color: #dc3545;
 }
 
-.table-responsive {
-  max-height: 100%;
-  overflow: auto;
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-outline-primary {
+  border-color: #007bff;
+  color: #007bff;
+}
+
+.btn-outline-primary:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn-outline-success {
+  border-color: #28a745;
+  color: #28a745;
+}
+
+.btn-outline-success:hover {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
+/* Sql Query */
+.sql-query-display {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.sql-query {
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
 }

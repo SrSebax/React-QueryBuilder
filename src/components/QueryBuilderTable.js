@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useQueryBuilderController } from '../controllers/queryBuilderController';
 import { FaPlus, FaMinus } from 'react-icons/fa';
-import SQLQuery from './SqlQuery';
+import SQLQuery from './SQLQuery';
+import DataTable from './DataTable';
+import { Offcanvas } from 'bootstrap';
 
 const QueryBuilderTable = () => {
   const {
@@ -10,6 +12,7 @@ const QueryBuilderTable = () => {
     fields,
     operators,
     sqlQuery,
+    data,
     handleAddRow,
     handleRemoveRow,
     handleFieldChange,
@@ -19,15 +22,41 @@ const QueryBuilderTable = () => {
     generateSQLQuery,
   } = useQueryBuilderController();
 
+  const columns = fields.map(field => ({
+    header: field.label,
+    accessor: field.name,
+  }));
+
+  const isQueryValid = rules.every(rule => rule.field && rule.operator && rule.value);
+
+  const handleGenerateSQLQuery = () => {
+    generateSQLQuery();
+  };
+
+  useEffect(() => {
+    if (sqlQuery) {
+      const offcanvasElement = document.getElementById('offcanvasSQLQuery');
+      if (offcanvasElement) {
+        const offcanvas = new Offcanvas(offcanvasElement);
+        offcanvas.show();
+      }
+    }
+  }, [sqlQuery]);
+
   return (
     <div className="query-builder-table-container">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1 className="text-primary">Generador de Informes</h1>
-        <button className="btn btn-outline-success" onClick={generateSQLQuery}>
-          Generar Query SQL
+        <button
+          className="btn btn-outline-success"
+          type="button"
+          onClick={handleGenerateSQLQuery}
+          disabled={!isQueryValid}
+        >
+          Mostrar Query SQL
         </button>
       </div>
-      <div className="table-responsive">
+      <div className="table-responsive query-table mb-4">
         <table className="table table-hover table-bordered">
           <thead className="thead-dark">
             <tr>
@@ -101,6 +130,9 @@ const QueryBuilderTable = () => {
         </table>
       </div>
       {sqlQuery && <SQLQuery sqlQuery={sqlQuery} />}
+      <div className="table-responsive data-table mb-4">
+        <DataTable columns={columns} data={data} />
+      </div>
     </div>
   );
 };

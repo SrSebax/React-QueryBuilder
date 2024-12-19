@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const DataTable = ({ columns, data }) => {
   return (
-    <div className="table-responsive">
+    <div className="table-responsive data-table">
       <table className="table table-striped table-bordered">
         <thead className="thead-dark">
           <tr>

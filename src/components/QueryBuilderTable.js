@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useQueryBuilderController } from '../controllers/queryBuilderController';
+import { generateSQLQuery } from '../utils/sqlGenerator';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import SQLQuery from './SQLQuery';
 import DataTable from './DataTable';
@@ -11,7 +12,6 @@ const QueryBuilderTable = () => {
     rules,
     fields,
     operators,
-    sqlQuery,
     data,
     handleAddRow,
     handleRemoveRow,
@@ -19,8 +19,9 @@ const QueryBuilderTable = () => {
     handleOperatorChange,
     handleValueChange,
     handleCombinatorChange,
-    generateSQLQuery,
   } = useQueryBuilderController();
+
+  const [generatedSQLQuery, setGeneratedSQLQuery] = useState({ conditions: '', values: [] });
 
   const columns = fields.map(field => ({
     header: field.label,
@@ -29,19 +30,31 @@ const QueryBuilderTable = () => {
 
   const isQueryValid = rules.every(rule => rule.field && rule.operator && rule.value);
 
+  const sanitizeInput = (input) => {
+    // Implement sanitization logic here
+    return input.replace(/'/g, "''");
+  };
+
   const handleGenerateSQLQuery = () => {
-    generateSQLQuery();
+    const sanitizedRules = rules.map(rule => ({
+      ...rule,
+      value: sanitizeInput(rule.value)
+    }));
+    const query = generateSQLQuery(sanitizedRules);
+    setGeneratedSQLQuery(query);
+    console.log('Generated SQL Query:', query);
+    console.log('JSON to be sent to backend:', JSON.stringify(query, null, 2));
   };
 
   useEffect(() => {
-    if (sqlQuery) {
+    if (generatedSQLQuery.conditions) {
       const offcanvasElement = document.getElementById('offcanvasSQLQuery');
       if (offcanvasElement) {
         const offcanvas = new Offcanvas(offcanvasElement);
         offcanvas.show();
       }
     }
-  }, [sqlQuery]);
+  }, [generatedSQLQuery]);
 
   return (
     <div className="query-builder-table-container">
@@ -129,7 +142,7 @@ const QueryBuilderTable = () => {
           </tbody>
         </table>
       </div>
-      {sqlQuery && <SQLQuery sqlQuery={sqlQuery} />}
+      {generatedSQLQuery.conditions && <SQLQuery sqlQuery={generatedSQLQuery.conditions} />}
       <div className="table-responsive data-table mb-4">
         <DataTable columns={columns} data={data} />
       </div>

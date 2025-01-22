@@ -46,9 +46,14 @@ export const useQueryBuilderController = () => {
   };
 
   const generateSQLQuery = () => {
-    const query = generateSQL(rules);
-    setSqlQuery(query);
-    updateData(rules);
+    try {
+      const query = generateSQL(rules);
+      setSqlQuery(query);
+      updateData(rules);
+    } catch (error) {
+      console.error('Error generating SQL query:', error);
+      setSqlQuery('');
+    }
   };
 
   const updateData = (rules) => {
@@ -72,11 +77,11 @@ export const useQueryBuilderController = () => {
             case '>=':
               return fieldValue >= ruleValue;
             case 'contains':
-              return fieldValue.includes(ruleValue);
+              return typeof fieldValue === 'string' && fieldValue.includes(ruleValue);
             case 'beginsWith':
-              return fieldValue.startsWith(ruleValue);
+              return typeof fieldValue === 'string' && fieldValue.startsWith(ruleValue);
             case 'endsWith':
-              return fieldValue.endsWith(ruleValue);
+              return typeof fieldValue === 'string' && fieldValue.endsWith(ruleValue);
             default:
               return true;
           }

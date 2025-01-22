@@ -88,9 +88,11 @@
 }
 
 .sql-query {
-  background-color: #f8f9fa;
-  padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #dee2e6;
-  white-space: pre-wrap; /* Ensures line breaks are preserved */
+  user-select: none; /* Prevent text selection */
+  pointer-events: none; /* Disable pointer events */
+  background-color: #f8f9fa; /* Optional: Set a background color */
+  padding: 10px; /* Optional: Add some padding */
+  border-radius: 4px; /* Optional: Add border radius */
+  border: 1px solid #dee2e6; /* Optional: Add border */
+  white-space: pre-wrap; /* Ensure line breaks are preserved */
 }

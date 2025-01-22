@@ -10,7 +10,7 @@ const SQLQuery = ({ sqlQuery }) => {
           <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div className="offcanvas-body">
-          <pre className="sql-query">{sqlQuery}</pre>
+          <pre className="sql-query" readOnly>{sqlQuery}</pre>
         </div>
       </div>
     </>
